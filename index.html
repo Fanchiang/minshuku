@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scss網頁切版應用實作</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap-grid.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./style700.css">
+    <script>
+        $(document).ready(function () {
+            window.setInterval(nextSlide, 3000)
+            //每三秒下一張
+        });
+
+        let currentIndex = 0; //紀錄正在顯示 slide的編號
+        function nextSlide() {
+            //隱藏正在顯示的slide
+            $(".slide:nth-child(" + (currentIndex + 1) + ")").fadeOut();
+
+            //取得下一張的編號
+            currentIndex = (currentIndex + 1) % 3; //取餘數的概念
+
+            //顯示下一張 slide
+            $(".slide:nth-child(" + (currentIndex + 1) + ")").fadeIn();
+        }
+    </script>
+    <script>
+        let roomcurrentIndex;
+        $(document).ready(function () {
+            roomcurrentIndex = 1;
+            $("#list>.scroller>img").on("click", function () {
+                let index = $(this).attr("data-index");
+                if (index == roomcurrentIndex) {
+                    return;
+                }
+                $("#showroom>img:nth-child(" + roomcurrentIndex + ")").hide();
+                $("#list>.scroller>img:nth-child(" + roomcurrentIndex + ")").removeClass("current");
+                roomcurrentIndex = index;
+                $("#showroom>img:nth-child(" + roomcurrentIndex + ")").fadeIn();
+                $("#list>.scroller>img:nth-child(" + roomcurrentIndex + ")").addClass("current");
+            });
+        });
+
+        function scrollList(step) {
+            let amount = step * 200;
+            let $scroller = $("#list>.scroller");
+            $scroller.animate({
+                scrollLeft: $scroller.scrollLeft() + amount
+            });
+        }
+    </script>
+
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav id="navbar" class="navbar">
+        <a class="navbar-brand" href="#">漁鄉魚香 民宿</a>
+        <i class="fas fa-fish icon"></i>
+        <i class="fas fa-fish icon"></i>
+        <i class="fas fa-fish icon"></i>
+        <button class="navbar-toggler">
+            <div class="navbar-toggler-line"></div>
+        </button>
+        <div class="navbar-list">
+            <a class="nav-link" data-scroll-target="section1" href="#section1">漁鄉簡介</a>
+            <a class="nav-link" data-scroll-target="section2" href="#section2">最新消息</a>
+            <a class="nav-link" data-scroll-target="section3" href="#section3">民宿設施</a>
+            <a class="nav-link" data-scroll-target="section4" href="#section4">房型介紹</a>
+            <a class="nav-link" data-scroll-target="section5" href="#section5">訂房預約</a>
+            <a class="nav-link" data-scroll-target="section6" href="#section6">交通資訊</a>
+            <a class="nav-link" data-scroll-target="section7" href="./travelsites.html">澎湖景點</a>
+
+        </div>
+    </nav>
+    <!-- navbar end -->
+    <!-- header -->
+    <!-- <header id="header">
+        <div class="container">
+            <h1>
+                <span>Title</span>
+            </h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus iure at sapiente soluta aliquid
+                velit numquam earum aperiam quam, ad ducimus, iste odit consequatur molestias provident distinctio,
+                dicta adipisci suscipit.</p>
+            <a href="#" class="header-btn">Explore</a>
+        </div>
+    </header> -->
+    <!-- header end -->
+
+    <!-- 照片輪播 start-->
+    <header>
+        <div class="slide slide0">
+            <img src="./img/header1.jpg" alt="">
+        </div>
+
+
+        <div class="slide slide1">
+            <img src="./img/header2.jpg" alt="">
+        </div>
+
+        <div class="slide slide2">
+            <img src="./img/header3.jpg" alt="">
+        </div>
+
+    </header>
+    <!-- 照片輪播 end-->
+
+    <!-- section1 -->
+    <section id="section1">
+        <div class="container">
+            <h2 class="section-title center">漁鄉魚香</h2>
+            <div class="product row no-gutters">
+                <div class="product-image-block col-md-6">
+                    <img src="./img/temp1.jpg" alt="">
+                    <div class="cover">
+                        <!-- <a href="#">Product 1</a> -->
+                    </div>
+                </div>
+                <div class="product-content-block col-md-6">
+                    <h4>簡介</h4>
+                    <h5>漁鄉魚香民宿位於白沙鄉港子村，是澎湖本島的中心位置。站在40坪的陽台上看到360度的美麗海景，可將附近無人島的風采盡收眼底。往西邊可清晰看到跨海大橋、西嶼山頭、大倉島；往南看可看到西衛、觀音亭、鎮海灣；往東看員貝、活龍灘、雞善、錠鉤、鳥嶼、小白沙等東海無人島；往北看屈爪、赤崁，由近而遠、由高而低如在眼前，不管漲潮、退潮，不管日出日落，都有非常迷人的景色。
+                    </h5>
+                    <!-- <a class="btn btn-primary">Product link</a> -->
+                </div>
+            </div>
+            <div class="product row no-gutters">
+                <div class="product-image-block col-md-6 order-md-12">
+                    <img src="./img/temp2.jpg" alt="">
+                    <div class=" cover">
+                        <a href="#">東西側景點</a>
+                    </div>
+                </div>
+                <div class="product-content-block col-md-6">
+                    <h4>東西側景點</h4>
+                    <h5>往西到西嶼各景點騎車只要20到35分，往南到馬公市區只要15到20分；往東到湖西各景點只要20到40分；往北到赤崁騎車只要5分鐘。</h5>
+                    <!-- <a class="btn btn-secondary">Product link</a> -->
+                </div>
+            </div>
+            <div class="product row no-gutters">
+                <div class="product-image-block col-md-6">
+                    <img src="./img/temp3.jpg" alt="">
+                    <div class="cover">
+                        <a href="#">單車免費服務</a>
+                    </div>
+                </div>
+                <div class="product-content-block col-md-6">
+                    <h4>單車免費服務</h4>
+                    <h5>民宿免費提供捷安特單車，5分鐘到岐頭水族館，3分鐘到鎮海灣沙灘，15分鐘到後寮碼頭和跨海大橋，10分中到赤崁遊艇碼頭，走路5分鐘到美東方牛肉麵館和港子公車站。</h5>
+                    <!-- <a class="btn btn-primary">Product link</a> -->
+                </div>
+            </div>
+            <div class="product row no-gutters">
+                <div class="product-image-block col-md-6 order-md-12">
+                    <img src="./img/temp4.jpg" alt="">
+                    <div class="cover">
+                        <a href="#">私房景點</a>
+                    </div>
+                </div>
+                <div class="product-content-block col-md-6">
+                    <h4>私房景點</h4>
+                    <h5>附近有很棒的私房景點，早晨黃昏到鎮海灣散步，享受寧靜、休閒，海景變化萬千；也可以到港子和岐頭海域觀賞招潮蟹和紅樹林，甚至退潮時還可走到潮間帶撿螺貝抓螃蟹等活動；到赤崁魚貨碼頭買海鮮看漁船卸魚蝦，現買幾斤回民宿簡單料理，品嘗甜美海鮮。
+                    </h5>
+                    <!-- <a class="btn btn-primary">Product link</a> -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- section1 end -->
+
+
+    <!-- section3 -->
+    <section id="section3">
+        <div class="container">
+            <h2 class="section-title center">民宿設施</h2>
+            <div class="row">
+                <div id="galleryImageT31" class="col-md-4 col-sm-6">
+                    <div class="gallery-text">Livingroom 1</div>
+                </div>
+                <div id="galleryImageT32" class="col-md-4 col-sm-6">
+                    <div class="gallery-text">Livingroom 1</div>
+                </div>
+                <div id="galleryImageT33" class="col-md-4 col-sm-6">
+                    <div class="gallery-text">Livingroom 1</div>
+                </div>
+                <div id="galleryImageT34" class="col-md-4 col-sm-6">
+                    <div class="gallery-text">Free Bicycle</div>
+                </div>
+                <div id="galleryImageT35" class="col-md-4 col-sm-6">
+                    <div class="gallery-text">Garden 1</div>
+                </div>
+                <div id="galleryImageT36" class="col-md-4 col-sm-6">
+                    <div class="gallery-text">Garden 2</div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="card-body">
+                            <i class="fas fa-biking text-primary icon"></i>
+                            <h4>Free Bicycle</h4>
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut ad soluta enim saepe?
+                                Accusamus, odio.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="card-body">
+                            <i class="fas fa-wifi text-primary icon"></i>
+                            <h4>Free Wifi</h4>
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut ad soluta enim saepe?
+                                Accusamus, odio.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="card-body">
+                            <i class="fas fa-basketball-ball text-primary icon"></i>
+                            <h4>Free Basketball</h4>
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut ad soluta enim saepe?
+                                Accusamus, odio.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- section3 end -->
+
+    <!-- section4 start-->
+    <section id="section4" class="no-padding">
+        <div class="container-fluid">
+            <h2 class="section-title center margin">房型01</h2>
+            <i class="fas fa-caret-square-down icon"></i>
+            <div class="row">
+                <div id="galleryImageT61" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo1</div>
+                </div>
+                <div id="galleryImageT62" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo2</div>
+                </div>
+                <div id="galleryImageT63" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo3</div>
+                </div>
+                <div id="galleryImageT64" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo4</div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <h2 class="section-title center  margin">房型02</h2>
+            <i class="fas fa-caret-square-down icon"></i>
+            <div class="row">
+                <div id="galleryImageT71" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo1</div>
+                </div>
+                <div id="galleryImageT72" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo2</div>
+                </div>
+                <div id="galleryImageT73" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo3</div>
+                </div>
+                <div id="galleryImageT74" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo4</div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container-fluid">
+            <h2 class="section-title center  margin">房型03</h2>
+            <i class="fas fa-caret-square-down icon"></i>
+            <div class="row">
+                <div id="galleryImageT81" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo1</div>
+                </div>
+                <div id="galleryImageT82" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo2</div>
+                </div>
+                <div id="galleryImageT83" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo3</div>
+                </div>
+                <div id="galleryImageT84" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo4</div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container-fluid">
+            <h2 class="section-title center  margin">房型04</h2>
+            <i class="fas fa-caret-square-down icon"></i>
+            <div class="row">
+                <div id="galleryImageT91" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo1</div>
+                </div>
+                <div id="galleryImageT92" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo2</div>
+                </div>
+                <div id="galleryImageT93" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo3</div>
+                </div>
+                <div id="galleryImageT94" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo4</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- section4 end -->
+
+
+    <!-- 訂房預約 start-->
+    <section id="section5">
+        <div class="container">
+            <h2 class="section-title center">訂房預約</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="section-sub-order"><B>【訂房程序】</B></h4>
+                    <p>＊請事先來電確認或預約
+                        <br>經電話訂房確認OK後，請於訂房後3日內匯訂金；
+                        <br>若保留期間未收到定金將取消訂房，不另行通知；
+                        <br>訂金為房價2成，匯款後請務必來電告知。
+                        <br><b>戶名：劉雅琪。</b>
+                        <br><b>帳號：040005178632【土地銀行澎湖分行】</b>
+                        <br>【電話：06-9933218或0934088707】
+                        <br>【Email：tzen0921@gmail.com】
+                        <br>【平日、假日定義】
+                        <br>＊平日：星期一至星期四
+                        <br>＊假日：星期五至星期日、國定假日及連續假日
+                        <br>【進退房時間】
+                        <br>＊進房時間：14：00以後。(可到咖啡廳等候)
+                        <br>＊退房時間：上午11：00以前。(可寄放行李)
+                    </p>
+
+                </div>
+
+                <div class="col-md-6">
+                    <!-- <h4>【訂房聯絡】</h4>
+                    <div class="icon wow bounceIn">
+                        <i class="fa fa-envelope fa-2x"> : yusiangyusiang@gmail.com</i>
+                    </div>                    
+                    <div class="icon wow bounceIn">
+                        <i class="fa fa-phone fa-2x"> : 06-9933-218 // 0934-088-707 </i>
+                    </div> -->
+                    <h4 class="section-sub-order"><b>【住宿優惠】</b> </h4>
+                    <p>＊機場接送、早餐服務。
+                        <br>＊海鮮介紹、行程建議。
+                        <br>＊離島行程服務、代租機、汽車。
+                        <br>＊捷安特單車免費出借。
+                        <br>＊最適合家族旅遊、方便溫馨。
+                        <br>＊最適合大學生畢業旅行，輕鬆自在。
+                        <br>＊山區國中、國小學生，每晚200元住宿。
+                        <br>＊來澎湖住宿最佳選擇，歡迎光臨。
+                    </p>
+                    <h3>環保旅店~~不提供牙膏、牙刷、毛巾。</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- section5 end -->
+    <!-- 訂房預約 end-->
+
+    <!-- section6 start -->
+    <section id="section6">
+        <div class="container">
+            <h2 class="section-title center">交通資訊</h2>
+            <div>
+                <h3 text-align="center"></h3>
+            </div>
+        </div>
+
+        <div id="map" align="center">
+
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3654.80462412466!2d119.5942736257625!3d23.64716695852825!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x615e272dbf89c3f7!2z5ryB6aaZ6a2a6aaZ5rCR5a6_!5e0!3m2!1szh-TW!2stw!4v1495633717269"
+                width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+        </div>
+
+    </section>
+    <!-- section6 end -->
+
+    <!-- section7 -->
+    <!-- <section id="section7">
+        <div class="container-fluid">
+            <h2 class="section-title center">近郊景點</h2>
+            <div class="row">
+                <div id="galleryImage1" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo1</div>
+                </div>
+                <div id="galleryImage2" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo2</div>
+                </div>
+                <div id="galleryImage3" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo3</div>
+                </div>
+                <div id="galleryImage4" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo4</div>
+                </div>
+                <div id="galleryImage5" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo5</div>
+                </div>
+                <div id="galleryImage6" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo6</div>
+                </div>
+                <div id="galleryImage7" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo7</div>
+                </div>
+                <div id="galleryImage8" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">Photo8</div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- section7 end -->
+
+
+    <footer id="footer">
+
+        <!-- <h1 class="section-title">漁鄉魚香 聯絡</h1> -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-md-6">
+                    <div class="icon wow bounceIn">
+                        <i class="fa fa-address-card fa-5x"></i>
+                        <h4>884 澎湖縣白沙鄉<br>港子村9鄰港子107之2號</h4>
+                    </div>
+
+                    <!--<a href="">tzen1029@gmail.com</a>-->
+                </div>
+                <div class="col-md-3 col-md-6">
+                    <div class="icon wow bounceIn">
+                        <i class="fa fa-phone fa-5x"></i>
+                    </div>
+                    <h4>06-9933-218<br>
+                        0934-088-707</h4>
+                </div>
+                <div class="col-md-3 col-md-6">
+                    <div class="icon wow bounceIn">
+                        <i class="fa fa-envelope fa-5x"></i>
+                        <!--  <h4>yusiangyusiang@gmail.com</h4> -->
+                        <a href="mailto:yusiangyusiang@gmail.com">
+                            <h4>tzen1029<br>
+                                @gmail.com</h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="icon wow bounceIn">
+                        <a href="https://www.facebook.com/%E6%BE%8E%E6%B9%96%E6%B0%91%E5%AE%BF-%E6%BC%81%E9%84%89%E9%AD%9A%E9%A6%99-205198769998597"
+                            target="_blank"><i class="fab fa-facebook fa-6x"></i></a>
+                        <!-- <img src="img/linecode.jpg" width="90" height="110" alt=""> -->
+                    </div>
+                </div>
+
+                <div class="col-md-1 col-md-6">
+                    <div class="icon wow bounceIn">
+
+                        <img src="img/linecode.jpg" width="90" height="110" alt="">
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+        <div class="social-media-links">
+            <!-- todo social-media-links -->
+        </div>
+
+        <div class="footer-footer">
+            <p class="text-center">&copy; Copy right 漁鄉魚香 民宿</p>
+        </div>
+    </footer>
+    <!-- footer end -->
+    <!-- jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <!-- bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
+    <script>
+        $(function () {
+            // 建立區塊查詢表
+            const sectionList = {};
+            // 選到所有導覽列連結
+            const $navlinkList = $('.navbar .nav-link');
+            // 調出所有導覽列連結
+            $navlinkList.each(function () {
+                const $link = $(this)
+                // 取得屬性data-scroll-target
+                const sectionId = $link.attr('data-scroll-target');
+                // 建立每個區塊的jQuery選擇器
+                const $section = $('#' + sectionId);
+                const obj = {
+                    section: $section,
+                    link: $link
+                }
+                // 紀錄至區塊查詢表
+                sectionList[sectionId] = obj;
+            });
+
+            $(window).scroll(function () {
+                // 取得滑動座標
+                const scrollTop = $(window).scrollTop();
+                // 將所有連結與區塊設定為非強調
+                $navlinkList.removeClass('active');
+                $('section').removeClass('active');
+                for (let sectionId in sectionList) {
+                    // 取回區塊
+                    const $section = sectionList[sectionId].section;
+                    // 取回連結
+                    const $link = sectionList[sectionId].link;
+                    // 頂邊座標
+                    const top = $section.offset().top - $navbar.outerHeight();
+                    // 底邊座標
+                    const bottom = $section.outerHeight() + top;
+                    // 如果滑動座標位於頂邊與底邊之間
+                    if (scrollTop >= top && scrollTop <= bottom) {
+                        $section.addClass('active');
+                        $link.addClass('active');
+                    }
+                }
+            });
+
+            // 導覽列
+            const $navbar = $('#navbar');
+
+            // 導覽列按鈕
+            $('.navbar-toggler').click(function () {
+                $navbar.toggleClass('show');
+            });
+
+            // 縮放螢幕時
+            $(window).resize(function () {
+                $navbar.removeClass('show');
+            });
+        });
+    </script>
+</body>
+
+</html>
