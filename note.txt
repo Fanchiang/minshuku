@@ -1,0 +1,16 @@
+<!-- 照片輪播 start-->
+    <header>
+        <div class="slide slide0"
+            style="background-size:cover;background-position: center center;background-image:url(./img/header1.jpg)">
+            Slide 1
+        </div>
+        <div class="slide slide1"
+            style="background-size:cover;background-position: center center;background-image:url(./img/header2.jpg)">
+            Slide 2
+        </div>
+        <div class="slide slide2"
+            style="background-size:cover;background-position: center center;background-image:url(./img/header3.jpg)">
+            Slide 3
+        </div>
+    </header>
+<!-- 照片輪播 end-->

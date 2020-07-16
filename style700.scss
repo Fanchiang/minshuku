@@ -1,0 +1,1022 @@
+/* note extend */
+@import url("https://fonts.googleapis.com/css?family=Merriweather:400,700");
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+nav a {
+    /*font-family: 'Merriweather', serif;*/
+    font-family: 'Microsoft JhengHei';
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+// Variables
+$primary: rgb(41, 175, 131);
+$secondary: rgb(6, 16, 41);
+$warning: rgb(214, 166, 110);
+$dark: rgb(4, 8, 20);
+$light: rgb(238, 238, 238);
+$white: #fff;
+// 裝置節點
+$xs: 576px;
+$sm: 767px;
+$md: 991px;
+
+// Placeholder
+%transition {
+    transition: all .3s ease;
+}
+
+%no-decoration {
+    text-decoration: none;
+}
+
+// Mixin
+@mixin transition() {
+    transition: all .3s ease;
+}
+
+@mixin btn($padding) {
+    display: inline-block;
+    text-decoration: none;
+    padding: $padding;
+}
+
+@mixin text-shadow() {
+    text-shadow: 0 3px 5px rgba($secondary, .3);
+}
+
+@mixin box-shadow() {
+    box-shadow: 0px 5px 10px rgba($secondary, .3);
+}
+
+@mixin picsum($id) {
+    background-image: url('https://picsum.photos/id/#{$id}/400/400');
+    background-size: cover;
+}
+
+@mixin photobank($id) {
+    background-image: url('./img/#{$id}.jpg');
+    background-size: cover;
+}
+
+@mixin box($width, $padding, $background) {
+    width: $width;
+    padding: $padding;
+    background-color: $background;
+}
+
+@mixin line($width, $height, $background) {
+    width: $width;
+    height: $height;
+    background-color: $background;
+}
+
+@mixin content() {
+    content: "";
+    display: block;
+}
+
+@mixin fixed-top($z) {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: $z;
+}
+
+// Global
+* {
+    // border: 1px solid black;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0px;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+$btn-color-list: (primary: $primary,
+    secondary: $secondary,
+    warning: $warning,
+    white: $white);
+
+.btn {
+    @include btn(10px 18px);
+}
+
+@each $name,
+$value in $btn-color-list {
+    .btn-#{$name} {
+        color: $white;
+        background-color: $value;
+        cursor: pointer;
+        border-radius: 6px;
+        @include transition();
+
+        &:hover {
+            background-color: darken($value, 8%);
+        }
+    }
+
+    .btn-outline-#{$name} {
+        color: $value;
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid $value;
+        @include transition();
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+    }
+}
+
+section {
+    padding: 56px 0px;
+
+    &.no-padding {
+        padding: 0px;
+    }
+
+    @include transition();
+
+    .section-title {
+        font-size: 28px;
+
+        &:after {
+            @include content();
+            @include transition();
+            @include line(0px, 5px, $warning);
+            border-radius: 3px;
+        }
+
+        &.center {
+            text-align: center;
+
+            &:after {
+                margin: 0 auto;
+            }
+        }
+    }
+
+    &.active {
+        background-color: $light;
+
+        .section-title:after {
+            width: 50px;
+        }
+    }
+}
+
+// Navbar
+#navbar {
+    @include box(100%, 10px 15px, $secondary);
+    display: flex;
+    justify-content: space-between;
+    @include fixed-top(1000);
+    @include box-shadow();
+    font-size: 20px;
+
+    a {
+        color: $white;
+        @extend %no-decoration;
+
+        &:hover {
+            color: rgb(241, 186, 176);
+        }
+
+    }
+
+    .icon {
+        @include transition();
+        display: block;
+        text-align: left;
+        color: $white;
+        font-size: 30px;
+        opacity: 0.7;
+    }
+
+    .navbar-list {
+        a {
+            margin-right: 15px;
+            @include transition();
+
+            &:last-child {
+                margin-right: 0px;
+            }
+
+            &:hover {
+                color: rgb(141, 207, 193);
+                text-decoration: none;
+                border-bottom: 2px solid #fff;
+            }
+        }
+
+    }
+
+    .navbar-toggler {
+        display: none;
+    }
+
+
+}
+
+//  照片輪播header
+body {
+    margin: 0px;
+}
+
+/*外層尺吋定下來，內層跟著連動*/
+
+header {
+    width: 100%;
+    height: 500px;
+    position: relative;
+
+    .slide img {
+        width: 100%;
+        height: 500px;
+        background-size: cover;
+        background-position: center center;
+
+    }
+}
+
+/**/
+
+header>.slide {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    /* 使三個slide疊再一起 */
+    width: 100%;
+    height: 100%;
+}
+
+header>.slide:not(:first-child) {
+    display: none;
+}
+
+header>.slide0 {}
+
+header>.slide1 {}
+
+// 當視窗<=$sm
+@media (max-width: $sm) {
+    #navbar {
+        .navbar-toggler {
+            display: block;
+            background: transparent;
+            border: none;
+
+            div {
+                @include line(20px, 2px, $white);
+                position: relative;
+                @include transition();
+
+                &:before,
+                &:after {
+                    @include content();
+                    @include line(20px, 2px, $white);
+                    position: absolute;
+                    left: 0px;
+                    right: 0px;
+                    margin: 0 auto;
+                    @include transition();
+                }
+
+                &:before {
+                    top: -5px;
+                }
+
+                &:after {
+                    bottom: -5px;
+                }
+            }
+        }
+
+        .navbar-list {
+            position: absolute;
+            top: 0px;
+            left: -250px;
+            @include box(250px, 0px, darken($secondary, 5%));
+            @include transition();
+            height: 100vh;
+
+            a {
+                display: block;
+                padding: 10px;
+            }
+        }
+
+
+
+
+        // 如果導覽列展開
+        &.show {
+            .navbar-list {
+                left: 0px;
+            }
+
+            .navbar-toggler {
+                div {
+                    transform: rotateZ(45deg);
+
+                    &:before {
+                        top: 0px;
+                    }
+
+                    &:after {
+                        transform: rotateZ(270deg);
+                        bottom: 0px;
+                    }
+                }
+            }
+        }
+    }
+
+    header {
+        height: 350px;
+        margin: 0px;
+
+        div.slide {
+            height: 350px;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .slide img {
+            height: 350px;
+
+
+        }
+    }
+
+}
+
+// Header
+$header-img-id: 1019;
+
+#header {
+    @include box(100%, 150px 0px, $light);
+    @include picsum($header-img-id);
+    color: white;
+    position: relative;
+
+    &:after {
+        @include content();
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-color: rgba($secondary, .3);
+        left: 0px;
+        top: 0px;
+        z-index: 1;
+        @include transition();
+    }
+
+    &:hover {
+        &:after {
+            background-color: rgba($secondary, .6);
+        }
+
+        h1:before {
+            width: 120px;
+        }
+    }
+
+    .container {
+        position: relative;
+        z-index: 3;
+    }
+
+    h1 {
+        font-size: 50px;
+        margin-bottom: 10px;
+        position: relative;
+        @include text-shadow();
+
+        span {
+            position: relative;
+            z-index: 2;
+        }
+
+        &:before {
+            @include content();
+            @include line(0px, 15px, $warning);
+            @include transition();
+            position: absolute;
+            bottom: 8px;
+            z-index: 1;
+        }
+    }
+
+    .header-btn {
+        @include btn(10px 30px);
+        border: 1px solid $white;
+        color: $white;
+        @include transition();
+
+        &:hover {
+            background-color: $warning;
+            border-color: darken($warning, 5%);
+            color: $secondary;
+        }
+    }
+}
+
+// Section 1
+.service-card {
+    background: $white;
+
+    .card-body {
+        padding: 15px;
+        text-align: center;
+
+        .icon {
+            color: $primary;
+            font-size: 70px;
+            @include transition();
+        }
+
+        h4 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            margin-top: 10px;
+
+            &:after {
+                @include content();
+                @include line(20px, 5px, $primary);
+                margin: 0px auto;
+                margin-top: 10px;
+                border-radius: 3px;
+                @include transition();
+            }
+        }
+    }
+
+    @include transition();
+
+    &:hover {
+        box-shadow: 0px 20px 15px rgba($secondary, .3);
+
+        .card-body {
+            .icon {
+                color: $secondary;
+                @include text-shadow();
+            }
+
+            h4:after {
+                width: 50px;
+                background-color: $secondary;
+            }
+
+            p {
+                opacity: .7;
+            }
+        }
+    }
+}
+
+// Section2
+.product {
+    margin-bottom: 40px;
+    background-color: white;
+    @include box-shadow();
+    @include transition();
+
+    .product-image-block {
+        img {
+            // width: 400px;
+            width: 100%;
+            margin: 0 auto;
+            display: block;
+        }
+
+        position: relative;
+
+        .cover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba($secondary, .05);
+            left: 0px;
+            top: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            @include transition();
+            opacity: 0;
+            overflow: hidden;
+
+            a {
+                @include btn(15px 35px);
+                color: $white;
+                border: 1px solid $white;
+                border-radius: 3px;
+                @include transition();
+                position: relative;
+                top: 300px;
+
+                &:hover {
+                    background-color: rgba($secondary, .4);
+                }
+            }
+        }
+
+        &:hover {
+            .cover {
+                opacity: 1;
+
+                a {
+                    top: 0px;
+                }
+            }
+        }
+    }
+
+    .product-content-block {
+        padding: 15px 20px;
+
+        h4 {
+            font-size: 24px;
+            margin-top: 0;
+            margin-bottom: 5px;
+            @include transition();
+        }
+
+        h5 {
+            margin-top: 20px;
+        }
+    }
+
+    &:hover {
+        box-shadow: 0 25px 20px rgba($secondary, .3);
+
+        .product-content-block {
+            h4 {
+                color: $primary;
+            }
+
+            h5 {
+                color: blue;
+            }
+        }
+    }
+}
+
+// Section3
+
+.utility-list {
+    text-align: center;
+}
+
+.utility {
+    @include box(120px, 15px, #fff); //(大小, 上下左右padding 15
+    @include box-shadow();
+    @include transition();
+    margin: 0px 30px 40px 30px; // 上 右 下 左 (順時針)
+    display: inline-block; // 若空間足夠，會放在同一行
+    color: $secondary; // css 設定會自動繼承
+    position: relative;
+
+    .icon {
+        font-size: 50px;
+
+    }
+
+    h5 {
+        font-size: 20px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .check-box {
+        width: 40px;
+        height: 40px;
+        color: $secondary;
+        background: $warning;
+        @include box-shadow();
+        @include transition();
+        position: absolute;
+        display: flex; //預設水平排列
+        flex-direction: column; // 轉為垂直排列
+        justify-content: center; // 使置中
+        border-radius: 50%; // 使成圓型
+        bottom: -20px;
+        right: -20px;
+        transform: rotateZ(-360deg) scale(0.5); //scale(0.5) 表縮小為0.5
+        opacity: 0;
+    }
+}
+
+.utility:hover {
+    background-color: $secondary;
+    color: $warning;
+
+    .check-box {
+        transform: rotateZ(0deg) scale(1);
+        opacity: 1;
+
+        &:hover {
+            background-color: $primary;
+        }
+    }
+}
+
+// section4
+// #section4 {
+//     @include picsum('999');
+//     color: white;
+//     text-align: center;
+//     background-attachment: fixed;
+// }
+
+// section5
+[id^=galleryImage] {
+    // 選取id="galleryImage"
+    height: 200px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: $white;
+    @include transition();
+    // filter: grayscale(100%);
+
+    .gallery-text {
+        font-size: 18px;
+        font-weight: 700;
+        @include text-shadow();
+        @include transition();
+        transform: rotateZ(180deg) scale(0.2);
+        opacity: 0;
+    }
+}
+
+[id^=galleryImage]:hover {
+    filter: grayscale(0%);
+
+    .gallery-text {
+        transform: rotateZ(0deg) scale(1);
+        opacity: 1;
+    }
+}
+
+// section7
+[id^=galleryImageT] {
+    // 選取id="galleryImageT"
+
+    height: 300px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: $white;
+    @include transition();
+    // filter: grayscale(100%);
+
+    .gallery-text {
+        font-size: 18px;
+        font-weight: 700;
+        @include text-shadow();
+        @include transition();
+        transform: rotateZ(180deg) scale(0.2);
+        opacity: 0;
+    }
+}
+
+[id^=galleryImageT]:hover {
+    filter: grayscale(0%);
+
+    .gallery-text {
+        transform: rotateZ(0deg) scale(1);
+        opacity: 1;
+    }
+}
+
+
+
+
+// 圖片對照表；也可使用自己圖片檔名來建置
+$image-list: (1: 103,
+    2: 1032,
+    3: 1033,
+    4: 1038,
+    5: 1040,
+    6: 1041,
+    7: 1042,
+    8: 1043);
+
+@each $id,
+$image-id in $image-list {
+    #galleryImage#{$id} {
+        @include picsum($image-id);
+    }
+}
+
+$image-listT: (1: 1,
+    2: 2,
+    3: 3,
+    4: 4,
+    5: 5,
+    6: 6,
+    7: 7,
+    8: 8,
+    9: 9,
+    10: 10,
+    11: 11,
+    12: 12,
+    31: 31,
+    32: 32,
+    33: 33,
+    34: 34,
+    35: 35,
+    36: 36,
+    61: 61,
+    62: 62,
+    63: 63,
+    64: 64,
+    71: 71,
+    72: 72,
+    73: 73,
+    74: 74,
+    81: 81,
+    82: 82,
+    83: 83,
+    84: 84,
+    91: 91,
+    92: 92,
+    93: 93,
+    94: 94);
+
+
+@each $id,
+$image-id in $image-listT {
+    #galleryImageT#{$id} {
+        @include photobank($id);
+    }
+}
+
+
+
+// footer
+footer {
+    background-color: $secondary;
+    color: $white;
+    margin: 0px;
+
+    .col-md-3,
+    .col-md-2,
+    .col-md-1 {
+        padding: 40px 40px;
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    a {
+        color: $primary;
+        text-decoration: none;
+        line-height: 24px;
+
+        &:hover {
+            color: darken($primary, 15%);
+        }
+    }
+
+    .footer-footer {
+        background-color: darken($secondary, 10%);
+        text-align: center;
+        margin: 0px;
+
+        p {
+            margin: 0px;
+        }
+    }
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+
+// 房型顯示
+
+* {
+    box-sizing: border-box;
+}
+
+.showroom {
+    height: 400px;
+    text-align: center;
+}
+
+.showroom>img {
+    max-width: 100%;
+    max-height: 400px;
+}
+
+.showroom>img:not(:first-child) {
+    display: none;
+}
+
+hr {
+    margin: 20px auto;
+    height: 3px;
+    background-color: #965225;
+    width: 600px;
+}
+
+.list {
+    text-align: center;
+}
+
+.list>button {
+    font-size: 2em;
+    border: none;
+    background-color: #ffffff;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.list>.scroller {
+    display: inline-block;
+    width: 600px;
+    padding: 5px 0px;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.list>.scroller>img {
+    width: 180px;
+    margin: 0px 10px;
+}
+
+.list>.scroller>img.current {
+    outline: 2px solid #aa0000;
+}
+
+#section4 {
+    .container-fluid {
+        padding-top: 56px;
+
+        .margin {
+            margin-bottom: 0px;
+        }
+
+        .icon {
+            @include transition();
+            display: block;
+            text-align: center;
+            color: blue;
+            font-size: 30px;
+            opacity: 0.5;
+        }
+    }
+}
+
+// section5
+#section5 {
+    .row {
+        @include box(1200px, 20px, $light);
+        color: blue;
+
+        &:hover {
+            background-color: rgb(236, 225, 225);
+        }
+    }
+}
+
+
+// 卡片
+
+//色彩對應表
+$color-list: (primary: rgb(175, 163, 220),
+    secondary: rgb(162, 184, 122),
+    accent: rgb(193, 163, 193),
+    success: rgb(134, 144, 174));
+
+// 卡片
+#cardSection {
+    padding-bottom: 0px;
+}
+
+#section7 {
+    padding-top: 30px;
+    padding-bottom: 0px;
+}
+
+.card {
+    margin-bottom: 20px;
+    @extend %transition;
+
+    .card-body {
+        padding: 50px 15px 15px 15px;
+        position: relative;
+        // 讓超出的內部元素隱藏
+        overflow: hidden;
+
+        .subtitle {
+            font-size: 24px;
+            font-size: 26px;
+            position: absolute;
+            left: 15px;
+            top: -10px;
+            @extend %transition;
+        }
+    }
+
+    @each $name,
+    $color in $color-list {
+        &.card-#{$name} {
+            border: 3px solid rgba($color, .2);
+
+            .card-header {
+                position: relative;
+
+                &:after {
+                    content: "";
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    background: rgba($color, .1);
+                    left: 0px;
+                    top: 0px;
+                    z-index: 1;
+                    @extend %transition;
+                }
+
+                .card-title,
+                .card-title2 {
+                    position: absolute;
+                    color: white;
+                    bottom: 35px;
+                    left: 15px;
+                    z-index: 2;
+                    @extend %transition;
+
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        display: block;
+                        width: 40px;
+                        height: 6px;
+                        background: white;
+                        border-radius: 3px;
+                        @extend %transition;
+                    }
+                }
+            }
+
+            .subtitle {
+                color: lighten($color, .2);
+            }
+
+            &:hover {
+                //  border-color: $color;
+                box-shadow: 3px 3px 0 $color;
+
+                .card-header {
+                    &:after {
+                        background: rgba($color, .2);
+                    }
+
+                    .card-title {
+                        color: $color;
+                        bottom: -75px;
+                        font-size: 24px;
+
+                        &:after {
+                            background: $color;
+                            width: 97px;
+                            height: 4px;
+
+                        }
+
+
+                    }
+
+                    .card-title2 {
+                        &:after {
+                            width: 120px;
+                        }
+                    }
+                }
+
+                .subtitle {
+                    left: -300px;
+                }
+            }
+        }
+    }
+}

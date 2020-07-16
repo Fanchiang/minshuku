@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scss網頁切版應用實作</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap-grid.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./style700.css">
+    <script>
+        $(document).ready(function () {
+            window.setInterval(nextSlide, 3000)
+            //每三秒下一張
+        });
+
+        let currentIndex = 0; //紀錄正在顯示 slide的編號
+        function nextSlide() {
+            //隱藏正在顯示的slide
+            $(".slide:nth-child(" + (currentIndex + 1) + ")").fadeOut();
+
+            //取得下一張的編號
+            currentIndex = (currentIndex + 1) % 3; //取餘數的概念
+
+            //顯示下一張 slide
+            $(".slide:nth-child(" + (currentIndex + 1) + ")").fadeIn();
+        }
+    </script>
+    <script>
+        let roomcurrentIndex;
+        $(document).ready(function () {
+            roomcurrentIndex = 1;
+            $("#list>.scroller>img").on("click", function () {
+                let index = $(this).attr("data-index");
+                if (index == roomcurrentIndex) {
+                    return;
+                }
+                $("#showroom>img:nth-child(" + roomcurrentIndex + ")").hide();
+                $("#list>.scroller>img:nth-child(" + roomcurrentIndex + ")").removeClass("current");
+                roomcurrentIndex = index;
+                $("#showroom>img:nth-child(" + roomcurrentIndex + ")").fadeIn();
+                $("#list>.scroller>img:nth-child(" + roomcurrentIndex + ")").addClass("current");
+            });
+        });
+
+        function scrollList(step) {
+            let amount = step * 200;
+            let $scroller = $("#list>.scroller");
+            $scroller.animate({
+                scrollLeft: $scroller.scrollLeft() + amount
+            });
+        }
+    </script>
+
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav id="navbar" class="navbar">
+        <a class="navbar-brand" href="index700.html">漁鄉魚香 民宿</a>
+        <i class="fas fa-fish icon"></i>
+        <i class="fas fa-fish icon"></i>
+        <i class="fas fa-fish icon"></i>
+        <button class="navbar-toggler">
+            <div class="navbar-toggler-line"></div>
+        </button>
+        <div class="navbar-list">
+            <a class="nav-link" data-scroll-target="section1" href="index700.html#section1">漁鄉簡介</a>
+            <a class="nav-link" data-scroll-target="section2" href="index700.html#section2">最新消息</a>
+            <a class="nav-link" data-scroll-target="section3" href="index700.html#section3">民宿設施</a>
+            <a class="nav-link" data-scroll-target="section4" href="index700.html#section4">房型介紹</a>
+            <a class="nav-link" data-scroll-target="section5" href="index700.html#section5">訂房需知</a>
+            <a class="nav-link" data-scroll-target="section5" href="index700.html#section6">交通資訊</a>
+            <a class="nav-link" data-scroll-target="section5" href="index700.html#section7">澎湖景點</a>
+        </div>
+    </nav>
+    <!-- note nav -->
+
+
+    <!-- note news -->
+
+
+
+    <section id="cardSection">
+        <div class="container">
+            <!-- <h1>Card</h1> -->
+            <br>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <img src="./img/23.jpg" width="100%">
+                            <h3 class="card-title card-title2">潮間帶觀察</h3>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="subtitle">潮間帶觀察</h4>
+                            <p>想欣賞潮間帶、珊瑚礁的美，要選農曆初一、十五前後三天大退潮的時候來澎湖。不用浮潛，就可以看到各種漂亮的熱帶魚，和不同種類的珊瑚礁及海膽。</p>
+                            <!-- <button class="btn btn-secondary"><i class="fas fa-shopping-cart"></i> Buy it</button> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <img src="./img/24.jpg" width="100%">
+                            <h3 class="card-title ">四季之美</h3>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="subtitle">四季之美</h4>
+                            <p>澎湖的美四季不同，夏天早晚最美。冬天強勁的東北季風激起浪花飛舞，十分壯觀。喜歡澎湖無汙染的碧海藍天，要多來幾次，才能享受其中樂取。</p>
+                            <!-- <button class="btn btn-success"><i class="fas fa-shopping-cart"></i> Buy it</button> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-accent">
+                        <div class="card-header">
+                            <img src="./img/25.jpg" width="100%">
+                            <h3 class="card-title">澎湖島嶼</h3>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="subtitle">澎湖島嶼</h4>
+                            <p>有人居住的島有東吉、東嶼坪、七美、望安、將軍、桶盤、虎井、大倉、鳥嶼、吉貝、員貝。另有80個無人島，都有不同景色，值得慢遊欣賞。</p>
+                            <!-- <button class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Buy it</button> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <img src="./img/9.jpg" width="100%">
+                            <h3 class="card-title">水上活動</h3>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="subtitle">水上活動</h4>
+                            <p>澎湖有三處可玩水上活動的地點，分別是吉貝沙尾、鳥嶼活龍灘、隘門金沙灘。</p>
+                            <!-- <button class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Buy it</button> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <img src="./img/7.jpg" width="100%">
+                            <h3 class="card-title">澎湖地理</h3>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="subtitle">澎湖地理</h4>
+                            <p>澎湖本島事實上是漁翁島、白沙島、湖西馬公三大島。有跨海大橋、中正橋連接。</p>
+                            <!-- <button class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Buy it</button> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <img src="./img/21.jpg" width="100%">
+                            <h3 class="card-title card-title2">玄武岩地景</h3>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="subtitle">玄武岩地景</h4>
+                            <p>望安、七美、虎井、桶盤值得去看看，吉貝沙尾也很漂亮。南方四島、雞善、錠鉤玄武岩很壯觀。</p>
+                            <!-- <button class="btn btn-accent"><i class="fas fa-shopping-cart"></i> Buy it</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section id="section7">
+        <div class="container-fluid">
+            <h2 class="section-title center">澎湖景點</h2>
+            <div class="row">
+                <div id="galleryImageT1" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">澎湖夕陽</div>
+                </div>
+                <div id="galleryImageT2" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">珊瑚之美</div>
+                </div>
+                <div id="galleryImageT3" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">硨磲貝</div>
+                </div>
+
+                <div id="galleryImageT5" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">鯨魚洞</div>
+                </div>
+
+
+                <div id="galleryImageT8" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">白色沙灘</div>
+                </div>
+                <div id="galleryImageT9" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">水上活動</div>
+                </div>
+                <div id="galleryImageT10" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">東嶼坪嶼-1</div>
+                </div>
+                <div id="galleryImageT11" class="col-md-3 col-sm-6">
+                    <div class="gallery-text">東嶼坪嶼-2</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- footer -->
+    <footer id="footer">
+
+        <!-- <h1 class="section-title">漁鄉魚香 聯絡</h1> -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="icon wow bounceIn">
+                        <i class="fa fa-address-card fa-5x"></i>
+                        <h4>884 澎湖縣白沙鄉<br>港子村9鄰港子107之2號</h4>
+                    </div>
+
+                    <!--<a href="">tzen1029@gmail.com</a>-->
+                </div>
+                <div class="col-md-3">
+                    <div class="icon wow bounceIn">
+                        <i class="fa fa-phone fa-5x"></i>
+                    </div>
+                    <h4>06-9933-218<br>
+                        0934-088-707</h4>
+                </div>
+                <div class="col-md-3">
+                    <div class="icon wow bounceIn">
+                        <i class="fa fa-envelope fa-5x"></i>
+                        <!--  <h4>yusiangyusiang@gmail.com</h4> -->
+                        <a href="mailto:yusiangyusiang@gmail.com">
+                            <h4>tzen1029<br>
+                                @gmail.com</h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="icon wow bounceIn">
+                        <a href="https://www.facebook.com/%E6%BE%8E%E6%B9%96%E6%B0%91%E5%AE%BF-%E6%BC%81%E9%84%89%E9%AD%9A%E9%A6%99-205198769998597"
+                            target="_blank"><i class="fab fa-facebook fa-6x"></i></a>
+                        <!-- <img src="img/linecode.jpg" width="90" height="110" alt=""> -->
+                    </div>
+                </div>
+
+                <div class="col-md-1">
+                    <div class="icon wow bounceIn">
+
+                        <img src="img/linecode.jpg" width="90" height="110" alt="">
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+        <div class="social-media-links">
+            <!-- todo social-media-links -->
+        </div>
+
+        <div class="footer-footer">
+            <p class="text-center">&copy; Copy right 漁鄉魚香 民宿</p>
+        </div>
+    </footer>
+
+    <!-- footer end -->
+    <!-- jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <!-- bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
+    <script>
+        $(function () {
+            // 建立區塊查詢表
+            const sectionList = {};
+            // 選到所有導覽列連結
+            const $navlinkList = $('.navbar .nav-link');
+            // 調出所有導覽列連結
+            $navlinkList.each(function () {
+                const $link = $(this)
+                // 取得屬性data-scroll-target
+                const sectionId = $link.attr('data-scroll-target');
+                // 建立每個區塊的jQuery選擇器
+                const $section = $('#' + sectionId);
+                const obj = {
+                    section: $section,
+                    link: $link
+                }
+                // 紀錄至區塊查詢表
+                sectionList[sectionId] = obj;
+            });
+
+            $(window).scroll(function () {
+                // 取得滑動座標
+                const scrollTop = $(window).scrollTop();
+                // 將所有連結與區塊設定為非強調
+                $navlinkList.removeClass('active');
+                $('section').removeClass('active');
+                for (let sectionId in sectionList) {
+                    // 取回區塊
+                    const $section = sectionList[sectionId].section;
+                    // 取回連結
+                    const $link = sectionList[sectionId].link;
+                    // 頂邊座標
+                    const top = $section.offset().top - $navbar.outerHeight();
+                    // 底邊座標
+                    const bottom = $section.outerHeight() + top;
+                    // 如果滑動座標位於頂邊與底邊之間
+                    if (scrollTop >= top && scrollTop <= bottom) {
+                        $section.addClass('active');
+                        $link.addClass('active');
+                    }
+                }
+            });
+
+            // 導覽列
+            const $navbar = $('#navbar');
+
+            // 導覽列按鈕
+            $('.navbar-toggler').click(function () {
+                $navbar.toggleClass('show');
+            });
+
+            // 縮放螢幕時
+            $(window).resize(function () {
+                $navbar.removeClass('show');
+            });
+        });
+    </script>
+</body>
+
+</html>
